@@ -14,6 +14,8 @@
     "undef": true,
     "unused": true,
     "predef": [
+        "XMLHttpRequest",
+        "JSON",
         "$",
         "after",
         "afterEach",
