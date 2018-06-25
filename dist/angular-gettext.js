@@ -326,6 +326,23 @@ angular.module('gettext').factory('gettextCatalog', ["gettextPlurals", "gettextF
             return addTranslatedMarkers(string);
         },
 
+        // Synchronous alternative to gettextCatalog#loadRemote
+        // Delays rendering until translations have loaded
+        // so no default strings are shown/cached while loading
+        loadRemoteSync: function (url) {
+            var xhr = new XMLHttpRequest();
+
+            xhr.addEventListener('load', function () {
+                var data = JSON.parse(this.responseText);
+                for (var lang in data) {
+                    catalog.setStrings(lang, data[lang]);
+                }
+            });
+
+            xhr.open('GET', url, false);
+            xhr.send();
+        },
+
         /**
          * @ngdoc method
          * @name gettextCatalog#loadRemote
